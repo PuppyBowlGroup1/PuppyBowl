@@ -69,33 +69,33 @@ const removePlayer = async (playerId) => {
  */
 const renderAllPlayers = (playerList) => {
     try {
-        partyContainer.innerHTML = '';
-    playerList.forEach((party) => {
-      const partyElement = document.createElement('div');
-      partyElement.classList.add('party');
-      partyElement.innerHTML = `
-                <h2>${party.name}</h2>
-                <p>${party.description}</p>
-                <p>${party.date}</p>
-                <p>${party.time}</p>
-                <p>${party.location}</p>
-                <button class="details-button" data-id="${party.id}">See Details</button>
-                <button class="delete-button" data-id="${party.id}">Delete</button>
+        playerContainer.innerHTML = '';
+    playerList.forEach((player) => {
+      const playerElement = document.createElement('div');
+      playerElement.classList.add('player');
+      playerElement.innerHTML = `
+                <h2>${player.name}</h2>
+                <p>${player.description}</p>
+                <p>${player.date}</p>
+                <p>${player.time}</p>
+                <p>${player.location}</p>
+                <button class="details-button" data-id="${player.id}">See Details</button>
+                <button class="delete-button" data-id="${player.id}">Delete</button>
             `;
-      partyContainer.appendChild(partyElement);
+      playerContainer.appendChild(playerElement);
 
       // see details
-      const detailsButton = partyElement.querySelector('.details-button');
+      const detailsButton = playerElement.querySelector('.details-button');
       detailsButton.addEventListener('click', async (event) => {
-        renderSinglePartyById(party.id);
+        renderSingleplayerById(player.id);
         // your code here
       });
 
-      // delete party
-      const deleteButton = partyElement.querySelector('.delete-button');
+      // delete player
+      const deleteButton = playerElement.querySelector('.delete-button');
       deleteButton.addEventListener('click', async (event) => {
         // your code here
-        partyContainer.removeChild(partyElement);
+        playerContainer.removeChild(playerElement);
       });
     });
     } catch (err) {
