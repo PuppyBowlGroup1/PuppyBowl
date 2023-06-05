@@ -2,9 +2,9 @@ const playerContainer = document.getElementById('all-players-container');
 const newPlayerFormContainer = document.getElementById('new-player-form');
 
 // Add your cohort name to the cohortName variable below, replacing the 'COHORT-NAME' placeholder
-const cohortName = 'YOUR COHORT NAME HERE';
+const cohortName = '2302-ACC-ET-WEB-PT-E';
 // Use the APIURL variable for fetch requests
-const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`;
+const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/players`;
 
 /**
  * It fetches all players from the API and returns them
@@ -12,7 +12,9 @@ const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`;
  */
 const fetchAllPlayers = async () => {
     try {
-
+        const response = await fetch(APIURL);
+    const PlayerLister = await response.json();
+    return PlayerLister;
     } catch (err) {
         console.error('Uh oh, trouble fetching players!', err);
     }
@@ -67,22 +69,51 @@ const removePlayer = async (playerId) => {
  */
 const renderAllPlayers = (playerList) => {
     try {
-        
+        partyContainer.innerHTML = '';
+    playerList.forEach((party) => {
+      const partyElement = document.createElement('div');
+      partyElement.classList.add('party');
+      partyElement.innerHTML = `
+                <h2>${party.name}</h2>
+                <p>${party.description}</p>
+                <p>${party.date}</p>
+                <p>${party.time}</p>
+                <p>${party.location}</p>
+                <button class="details-button" data-id="${party.id}">See Details</button>
+                <button class="delete-button" data-id="${party.id}">Delete</button>
+            `;
+      partyContainer.appendChild(partyElement);
+
+      // see details
+      const detailsButton = partyElement.querySelector('.details-button');
+      detailsButton.addEventListener('click', async (event) => {
+        renderSinglePartyById(party.id);
+        // your code here
+      });
+
+      // delete party
+      const deleteButton = partyElement.querySelector('.delete-button');
+      deleteButton.addEventListener('click', async (event) => {
+        // your code here
+        partyContainer.removeChild(partyElement);
+      });
+    });
     } catch (err) {
         console.error('Uh oh, trouble rendering players!', err);
     }
 };
 
 
+
 /**
- * It renders a form to the DOM, and when the form is submitted, it adds a new player to the database,
+ * It renders a form to the DOM, and when the form is submitted, it adds  a new player to the database,
  * fetches all players from the database, and renders them to the DOM.
  */
 const renderNewPlayerForm = () => {
     try {
         
     } catch (err) {
-        console.error('Uh oh, trouble rendering the new player form!', err);
+        console.error('Uh oh, trouble rendering the new playerform!', err);
     }
 }
 
