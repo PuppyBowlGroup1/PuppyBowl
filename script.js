@@ -1,5 +1,7 @@
+//caught SyntaxError: Identifier 'playerContainer' has already been declared (at script.js:1:1)
 const playerContainer = document.getElementById('all-players-container');
 const newPlayerFormContainer = document.getElementById('new-player-form');
+let player;
 
 // Add your cohort name to the cohortName variable below, replacing the 'COHORT-NAME' placeholder
 const cohortName = '2302-ACC-ET-WEB-PT-E';
@@ -70,15 +72,15 @@ const removePlayer = async (playerId) => {
 const renderAllPlayers = (playerList) => {
     try {
         playerContainer.innerHTML = '';
+        //peError: playerList.forEach is not a function at renderAllPlayers (VM73 script.js:73:16)
     playerList.forEach((player) => {
       const playerElement = document.createElement('div');
       playerElement.classList.add('player');
       playerElement.innerHTML = `
-                <h2>${player.name}</h2>
-                <p>${player.description}</p>
-                <p>${player.date}</p>
-                <p>${player.time}</p>
-                <p>${player.location}</p>
+                <h2>${player.id}</h2>
+                <p>${player.name}</p>
+                <p>${player.breed}</p>
+                <p>${player.status}</p>
                 <button class="details-button" data-id="${player.id}">See Details</button>
                 <button class="delete-button" data-id="${player.id}">Delete</button>
             `;
@@ -119,6 +121,7 @@ const renderNewPlayerForm = () => {
 
 const init = async () => {
     const players = await fetchAllPlayers();
+    console.log(players);
     renderAllPlayers(players);
 
     renderNewPlayerForm();
