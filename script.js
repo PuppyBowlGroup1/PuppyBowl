@@ -157,6 +157,7 @@ const renderNewPlayerForm = () => {
         //Adding event listener for submitting the form
         document.getElementById('new-player-form').addEventListener('submit', async (event) => {
             event.preventDefault();
+            console.log('Form submitted');
 
             //Collecting form data
             const playerObj = {
@@ -165,6 +166,8 @@ const renderNewPlayerForm = () => {
                 age: document.getElementById('age').value,
                 imageUrl: document.getElementById('imageUrl').value,
             };
+
+            console.log('Form data:', playerObj);
 
             // Adding new player and re-rendering all players
             await addNewPlayer(playerObj);
