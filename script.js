@@ -104,7 +104,7 @@ const renderNewPlayerForm = () => {
             <input type="number" id="age" placeholder="Enter age" required>
             <input type="url" id="imageUrl" placeholder="Enter image URL" required>
             <button type="submit">Add player</button>
-            
+
         </form>
         `;
 
