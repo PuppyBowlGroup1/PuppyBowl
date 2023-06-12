@@ -1,3 +1,4 @@
+// Choosing HTML elements to interact with
 const playerContainer = document.getElementById('all-players-container');
 const newPlayerFormContainer = document.getElementById('new-player-form');
 
@@ -12,10 +13,14 @@ const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/players`;
  */
 const fetchAllPlayers = async () => {
     try {
+        // Sending GET request to the API
         const response = await fetch(APIURL);
         const players = await response.json();
+        // console.log(players);
+        //return the array of players
         return players;
     } catch (err) {
+        //Logging any errors that occured
         console.error('Uh oh, trouble fetching players!', err);
     }
 };
@@ -30,8 +35,11 @@ const fetchSinglePlayer = async (playerId) => {
     }
 };
 
+// Adding a new player using the API
 const addNewPlayer = async (playerObj) => {
     try {
+
+        // Sending out the POST request to API
         const response = await fetch(APIURL, {
             method: 'POST',
             headers: {
@@ -48,6 +56,8 @@ const addNewPlayer = async (playerObj) => {
 
 const removePlayer = async (playerId) => {
     try {
+
+        //Sending the DELETE request to specific player's API URL
         const response = await fetch(`${APIURL}/${playerId}`, {
             method: 'DELETE',
         });
@@ -82,8 +92,42 @@ const removePlayer = async (playerId) => {
  * @returns the playerContainerHTML variable.
  */
 const renderAllPlayers = (playerList) => {
+    // console.log(playerList);
     try {
-        
+
+        playerContainer.innerHTML = '';
+        playerList.forEach((player) => {
+            const playerCard = document.createElement('div');
+            playerCard.classList.add('playerCard');
+
+            playerCard.innerHTML = `
+            <img src="${player.imageUrl}" alt="${player.name}" />
+            <p>${player.name}</p>
+            <p>${player.breed}</p>
+            <p>${player.age}</p>
+            <button class="details" id="${player.id}">See details</button>
+            <button class="remove" id="${player.id}">Remove from roster</button>
+            `;
+
+            playerContainer.appendChild(playerCard);
+        });
+
+        // Add event listeners to buttons
+        document.querySelectorAll('.details').forEach((button) =>
+            button.addEventListener('click', async (event) => {
+                const player = await fetchSinglePlayer(event.target.id);
+                // Display player details
+            })
+        );
+
+        document.querySelectorAll('.remove').forEach((button) =>
+            button.addEventListener('click', async (event) => {
+                await removePlayer(event.target.id);
+                // Re-render all players
+                const players = await fetchAllPlayers();
+                renderAllPlayers(players);
+            })
+        );
     } catch (err) {
         console.error('Uh oh, trouble rendering players!', err);
     }
@@ -96,6 +140,8 @@ const renderAllPlayers = (playerList) => {
  */
 const renderNewPlayerForm = () => {
     try {
+
+        // Add form to DOM
         newPlayerFormContainer.innerHTML = `
         <form id="new-player-form">
 
@@ -108,9 +154,11 @@ const renderNewPlayerForm = () => {
         </form>
         `;
 
+        //Adding event listener for submitting the form
         document.getElementById('new-player-form').addEventListener('submit', async (event) => {
             event.preventDefault();
 
+            //Collecting form data
             const playerObj = {
                 name: document.getElementById('name').value,
                 breed: document.getElementById('breed').value,
@@ -118,6 +166,7 @@ const renderNewPlayerForm = () => {
                 imageUrl: document.getElementById('imageUrl').value,
             };
 
+            // Adding new player and re-rendering all players
             await addNewPlayer(playerObj);
             const players = await fetchAllPlayers();
             renderAllPlayers(players);
@@ -127,7 +176,10 @@ const renderNewPlayerForm = () => {
     }
 }
 
+
 const init = async () => {
+
+    //Fetch and render all the payers
     const players = await fetchAllPlayers();
     renderAllPlayers(players);
 
