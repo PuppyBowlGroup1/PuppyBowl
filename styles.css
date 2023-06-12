@@ -3,3 +3,87 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+body {
+  background-color: #F3F3F3;
+  font-family: 'Arial', sans-serif;
+}
+
+#all-players-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.playerCard {
+  background-color: #FFDDC1;
+  border: 1px solid #FC4445;
+  border-radius: 10px;
+  margin: 10px;
+  width: 200px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+}
+
+.playerCard img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+.playerCard p {
+  color: #3F4039;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+#new-player-form {
+  margin: 30px auto;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+#new-player-form input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+#new-player-form button {
+  background-color: #FC4445;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#new-player-form button:hover {
+  background-color: #FF5C58;
+}
+
+button.details, button.remove {
+  margin-top: 10px;
+  background-color: #4EA5D9;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.details:hover {
+  background-color: #6BCAE2;
+}
+
+button.remove:hover {
+  background-color: #2A324B;
+  color: white;
+}
