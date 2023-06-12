@@ -92,11 +92,11 @@ const removePlayer = async (playerId) => {
  * @returns the playerContainerHTML variable.
  */
 const renderAllPlayers = (playerList) => {
-    // console.log(playerList);
+
     try {
 
         playerContainer.innerHTML = '';
-        playerList.forEach((player) => {
+        Array.from(playerList).forEach((player) => {
             const playerCard = document.createElement('div');
             playerCard.classList.add('playerCard');
 
