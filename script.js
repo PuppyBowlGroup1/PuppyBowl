@@ -98,11 +98,13 @@ const renderNewPlayerForm = () => {
     try {
         newPlayerFormContainer.innerHTML = `
         <form id="new-player-form">
+
             <input type="text" id="name" placeholder="Enter puppy name" required>
             <input type="text" id="breed" placeholder="Enter breed" required>
             <input type="number" id="age" placeholder="Enter age" required>
             <input type="url" id="imageUrl" placeholder="Enter image URL" required>
             <button type="submit">Add player</button>
+            
         </form>
         `;
 
